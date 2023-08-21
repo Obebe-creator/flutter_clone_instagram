@@ -2,33 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ImageData extends StatelessWidget {
-  final String icon;
+  final String path;
   final double? width;
-
-  const ImageData({
-    super.key,
-    required this.icon,
-    this.width = 55,
-  });
+  const ImageData({super.key, required this.path, this.width = 55});
 
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      icon,
+      path,
       width: width! / Get.mediaQuery.devicePixelRatio,
     );
   }
 }
 
 class IconsPath {
-  static String get homeOff => 'assets/images/bottom_nav_home_off_icon.jpg';
   static String get homeOn => 'assets/images/bottom_nav_home_on_icon.jpg';
-  static String get searchOff => 'assets/images/bottom_nav_search_off_icon.jpg';
+  static String get homeOff => 'assets/images/bottom_nav_home_off_icon.jpg';
   static String get searchOn => 'assets/images/bottom_nav_search_on_icon.jpg';
-  static String get uploadIcon => 'assets/images/bottom_nav_upload_icon.jpg';
-  static String get activeOff => 'assets/images/bottom_nav_active_off_icon.jpg';
-  static String get activeOn => 'assets/images/bottom_nav_active_on_icon.jpg';
+  static String get searchOff => 'assets/images/bottom_nav_search_off_icon.jpg';
+  static String get upload => 'assets/images/bottom_nav_upload_icon.jpg';
+  static String get reelsOn => 'assets/images/bottom_nav_reels_on_icon.png';
+  static String get reelsOff => 'assets/images/bottom_nav_reels_off_icon.png';
   static String get logo => 'assets/images/logo.jpg';
+  static String get active => 'assets/images/bottom_nav_active_off_icon.jpg';
+  static String get dm => 'assets/images/direct_msg_icon.jpg';
+  static String get addStory => 'assets/images/plus_icon.png';
   static String get directMessage => 'assets/images/direct_msg_icon.jpg';
   static String get plusIcon => 'assets/images/plus_icon.png';
   static String get postMoreIcon => 'assets/images/more_icon.jpg';
@@ -49,7 +47,7 @@ class IconsPath {
   static String get imageSelectIcon => 'assets/images/image_select_icon.jpg';
   static String get cameraIcon => 'assets/images/camera_icon.jpg';
   static String get uploadComplete => 'assets/images/upload_complete_icon.jpg';
-  static String get mypageBottomIcon => 'assets/images/mypage_bottom_icon.jpg';
+  static String get arrowDownIcon => 'assets/images/down_arrow_icon.jpg';
   static String get mypageBottomSheet01 =>
       'assets/images/mypage_bottom_sheet_01.jpg';
   static String get mypageBottomSheet02 =>

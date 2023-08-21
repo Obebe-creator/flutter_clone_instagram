@@ -1,58 +1,51 @@
 import 'dart:io';
-
-import 'package:flutter/material.dart';
+import 'package:flutter_clone_inst/src/binding/upload_binding.dart';
 import 'package:get/get.dart';
-
-import '../components/message_popup.dart';
 import '../pages/upload.dart';
 
-enum PageName { HOME, SEARCH, UPLOAD, ACTIVITY, MYPAGE }
+enum PageName { HOME, SEARCH, UPLOAD, REELS, MYPAGE }
 
 class BottomNavController extends GetxController {
-  RxInt pageIndex = 0.obs;
-  List<int> bottomhistory = [0];
+  final RxInt _pageIndex = 0.obs;
 
-  void changeBottomNav(int value, {bool hasGesture = true}) {
+  final List<int> _history = [0];
+
+  int get pageIndex => _pageIndex.value;
+
+  void changeIndex(int value) {
     var page = PageName.values[value];
     switch (page) {
-      case PageName.UPLOAD:
-        Get.to(() => const Upload());
-        break;
       case PageName.HOME:
       case PageName.SEARCH:
-      case PageName.ACTIVITY:
+      case PageName.REELS:
       case PageName.MYPAGE:
-        _changePage(value, hasGesture: hasGesture);
-        break;
+        moveToPage(value);
+      case PageName.UPLOAD:
+        moveToUpload();
     }
   }
 
-  void _changePage(int value, {bool hasGesture = true}) {
-    pageIndex(value);
-    if (!hasGesture) return;
-    if (bottomhistory.last != value) {
-      bottomhistory.add(value);
+  void moveToPage(int value) {
+    if (_history.last != value && Platform.isAndroid) {
+      // Android에서 _history의 마지막 값이 value 값과 다를 때
+      _history.add(value); //value 값을 넣어준다
     }
+    _pageIndex(value);
   }
 
-  Future<bool> willPopAction() async {
-    if (bottomhistory.length == 1) {
-      showDialog(
-          context: Get.context!,
-          builder: (context) => MessagePopup(
-                message: '종료하시겠습니까?',
-                okCallback: () {
-                  exit(0);
-                },
-                cancleCallback: Get.back,
-                title: 'System',
-              ));
-      return true;
+  Future<bool> popAction() async {
+    if (_history.length == 1) {
+      // history가 1일 경우
+      return true; // 뒤로가기 가능
     } else {
-      bottomhistory.removeLast();
-      var index = bottomhistory.last;
-      changeBottomNav(index, hasGesture: false);
-      return false;
+      // history가 1이 아닐 경우
+      _history.removeLast(); // 가장 최근 페이지 이력 제거
+      _pageIndex(_history.last); // 가장 최근 페이지로 이동
+      return false; // 뒤로가기 x
     }
+  }
+
+  void moveToUpload() {
+    Get.to(() => const Upload(), binding: UploadBiding());
   }
 }
