@@ -34,7 +34,7 @@ class SearchFocusController extends GetxController
     ),
   ];
 
-  TextEditingController get SearchController => _controller;
+  TextEditingController get searchController => _controller;
   TabController get tabController => _tab;
   List<Widget> get tabs => _tabs;
 

@@ -9,7 +9,6 @@ class ImageAvatar extends StatelessWidget {
   final String url;
   final AvatarType type;
   final void Function()? onTap;
-
   const ImageAvatar(
       {super.key,
       this.width = 30,
@@ -63,6 +62,7 @@ class ImageAvatar extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.black, borderRadius: BorderRadius.circular(100.0)),
       child: Container(
+        padding: const EdgeInsets.all(1.0),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadiusDirectional.circular(100.0)),
@@ -97,6 +97,7 @@ class ImageAvatar extends StatelessWidget {
                 bottom: 0.5,
                 right: 0.5,
                 child: Container(
+                  padding: const EdgeInsets.all(3.0),
                   decoration: const BoxDecoration(
                       shape: BoxShape.circle, color: Colors.white),
                   child: ImageData(width: 65, path: IconsPath.addStory),
